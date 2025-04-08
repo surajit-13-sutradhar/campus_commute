@@ -1,6 +1,7 @@
 # 🚍 CampusCommute
 
 **CampusCommute** is a free, AI-powered, real-time smart mobility platform designed to simplify and optimize daily transportation within college campuses. With live tracking, intelligent routing, and a seamless booking system, CampusCommute ensures students and staff get around safely and efficiently.
+
 ---
 
 ## 🌟 Key Highlights
@@ -12,6 +13,7 @@
 - 🗺️ **Live Maps + Navigation** to nearest checkpoint
 - 📊 **Admin Dashboard** with analytics and vehicle control
 - 🛠️ Optional **Driver App** for route and shift management
+- 🚌 **Group Booking Support** for student clubs and faculty excursions (requires approval)
 
 ---
 
@@ -93,6 +95,17 @@ CampusCommute addresses key commute issues in campuses:
 
 ---
 
+## 🌟 Special Feature: Group Bookings
+
+Club secretaries and professors can book buses for academic and extracurricular excursions:
+
+- ✅ Book entire bus for a day (field trip, club activity)
+- 📅 Must be booked **2 days in advance**
+- 📝 Requires signed authorization from college administration
+- 📂 Verified bookings appear in admin dashboard for final dispatch
+
+---
+
 ## 🔮 Future Enhancements
 
 - ✅ QR-based check-ins  
@@ -118,3 +131,26 @@ cp .env.example .env
 
 # Start development server
 npm run dev     # or uvicorn app.main:app --reload
+```
+
+---
+
+## ✍️ Contributors
+
+Faruk Ahmed  
+Jubaraj Talukdar  
+Karan Jyoti Medhi  
+Priyanuj Kashyap  
+Surajit Sutradhar  
+
+---
+
+## 📅 Date
+
+**08 April, 2025**
+
+
+## 💡 Let’s Redefine Campus Travel!
+
+Join us in making campus mobility **smarter, greener, and more accessible** 🚀
+
