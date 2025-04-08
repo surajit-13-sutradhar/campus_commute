@@ -76,6 +76,14 @@ CampusCommute addresses key commute issues in campuses:
 - ⚙️ Maintenance Alerts
 - 🔁 Rerouting Based on Live Data
 
+### 🧾 Group Booking Management
+
+- 📌 View and verify booking requests by club secretaries and faculty
+- 📅 Ensure requests are made at least **2 days in advance**
+- 📝 Check for valid documentation signed by the college administration
+- 🧑‍💼 Approve or deny based on vehicle availability and academic calendar
+- 📊 Generate reports on group travel usage and history
+
 ---
 
 ## 🚘 Driver App (Optional)
@@ -148,7 +156,6 @@ Surajit Sutradhar
 ## 📅 Date
 
 **08 April, 2025**
-
 
 ## 💡 Let’s Redefine Campus Travel!
 
