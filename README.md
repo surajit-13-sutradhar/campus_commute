@@ -128,8 +128,8 @@ Club secretaries and professors can book buses for academic and extracurricular 
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-org/campuscommute.git
-cd campuscommute
+git clone https://github.com/surajit-13-sutradhar/campus_commute.git
+cd campus_commute
 
 # Install dependencies (for backend)
 npm install     # or pip install -r requirements.txt
