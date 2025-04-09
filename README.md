@@ -132,15 +132,9 @@ git clone https://github.com/surajit-13-sutradhar/campus_commute.git
 cd campus_commute
 
 # Install dependencies (for backend)
-npm install     # or pip install -r requirements.txt
-
-# Set environment variables
-cp .env.example .env
-
-# Start development server
-npm run dev     # or uvicorn app.main:app --reload
+npm install express pg dotenv cors jsonwebtoken bcryptjs
+npm install --save-dev nodemon
 ```
-
 ---
 
 ## ✍️ Contributors
