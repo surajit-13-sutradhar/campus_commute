@@ -137,6 +137,68 @@ npm install --save-dev nodemon
 ```
 ---
 
+##📁Folder Structure
+```bash
+CampusCommute/
+├── server/
+│   ├── src/
+│   │   ├── config/              # Configuration files (DB, ENV, third-party, etc.)
+│   │   │   ├── db.js
+│   │   │   └── firebase.js      # FCM setup (optional for notifications)
+│   │   │
+│   │   ├── controllers/         # Route handlers (business logic)
+│   │   │   ├── auth.controller.js
+│   │   │   ├── user.controller.js
+│   │   │   ├── ride.controller.js
+│   │   │   ├── booking.controller.js
+│   │   │   └── admin.controller.js
+│   │   │
+│   │   ├── middlewares/         # Express middlewares
+│   │   │   ├── auth.middleware.js
+│   │   │   ├── error.middleware.js
+│   │   │   └── validate.middleware.js
+│   │   │
+│   │   ├── models/              # DB access logic (queries)
+│   │   │   ├── user.model.js
+│   │   │   ├── ride.model.js
+│   │   │   ├── vehicle.model.js
+│   │   │   ├── route.model.js
+│   │   │   └── booking.model.js
+│   │   │
+│   │   ├── routes/              # Express routers
+│   │   │   ├── auth.routes.js
+│   │   │   ├── user.routes.js
+│   │   │   ├── ride.routes.js
+│   │   │   ├── booking.routes.js
+│   │   │   └── admin.routes.js
+│   │   │
+│   │   ├── services/            # Business logic helpers (optional service layer)
+│   │   │   ├── ai.service.js
+│   │   │   ├── notification.service.js
+│   │   │   └── socket.service.js
+│   │   │
+│   │   ├── sockets/             # WebSocket logic (for real-time tracking)
+│   │   │   └── tracking.socket.js
+│   │   │
+│   │   ├── utils/               # Utility functions (helpers, formatters)
+│   │   │   ├── jwt.util.js
+│   │   │   ├── location.util.js
+│   │   │   └── logger.util.js
+│   │   │
+│   │   ├── app.js               # Express app config
+│   │   └── init.js              # Init scripts (like DB sync, migrations, etc.)
+│   │
+│   ├── schema.sql               # Postgres schema (for setup/migrations)
+│   ├── server.js                # Entry point
+│   ├── .env                     # Environment variables
+│   ├── .env.example             # Sample env for contributors
+│   ├── Dockerfile               # Optional Docker support
+│   ├── docker-compose.yml       # Postgres + server stack
+│   ├── package.json
+│   └── README.md
+
+```
+
 ## ✍️ Contributors
 
 Faruk Ahmed  
