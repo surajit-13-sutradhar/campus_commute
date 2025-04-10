@@ -6,6 +6,10 @@ import bookingRoutes from './routes/bookings.route.js'
 dotenv.config()
 const app = express()
 
+const cors = require("cors");
+app.use(cors());
+
+
 app.use(express.json())
 app.use("/uploads", express.static("src/uploads"))
 app.use("/api/vehicles", vehicleRoutes)
