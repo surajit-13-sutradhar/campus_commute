@@ -1,11 +1,15 @@
 import express from 'express'
 import dotenv from 'dotenv'
+import vehicleRoutes from './routes/vehicles.route.js'
+import bookingRoutes from './routes/bookings.route.js'
 
 dotenv.config()
 const app = express()
 
 app.use(express.json())
 app.use("/uploads", express.static("src/uploads"))
+app.use("/api/vehicles", vehicleRoutes)
+app.use("/api/bookings", bookingRoutes)
 
 app.use("/api/auth", authRoutes)
 

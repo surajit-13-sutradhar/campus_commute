@@ -8,22 +8,34 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   name      String
-  email     String   @unique
+  email     String    @unique
   password  String
-  role      Role     @default(STUDENT)
+  role      Role      @default(STUDENT)
   idImage   String?
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
+  bookings  Booking[]
 }
 
 model Vehicle {
-  id        String   @id @default(uuid())
+  id        String      @id @default(uuid())
   name      String
   type      VehicleType
-  available Boolean  @default(true)
-  route     String?  // Only for buses
+  available Boolean     @default(true)
+  route     String? // Only for buses
   departure DateTime?
+  bookings  Booking[]
+}
+
+model Booking {
+  id        String      @id @default(uuid())
+  user      User        @relation(fields: [userId], references: [id])
+  userId    String
+  vehicle   Vehicle     @relation(fields: [vehicleId], references: [id])
+  vehicleId String
+  createdAt DateTime    @default(now())
+  type      BookingType
 }
 
 enum Role {
@@ -34,5 +46,10 @@ enum Role {
 
 enum VehicleType {
   BUS
+  AUTO
+}
+
+enum BookingType {
+  BOOKING
   AUTO
 }
