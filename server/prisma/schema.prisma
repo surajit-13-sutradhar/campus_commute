@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(STUDENT)
+  idImage   String?
+  createdAt DateTime @default(now())
+}
+
+model Vehicle {
+  id        String   @id @default(uuid())
+  name      String
+  type      VehicleType
+  available Boolean  @default(true)
+  route     String?  // Only for buses
+  departure DateTime?
+}
+
+enum Role {
+  STUDENT
+  CLUB_SECY
+  FACULTY
+}
+
+enum VehicleType {
+  BUS
+  AUTO
+}

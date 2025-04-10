@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@clerk/clerk-sdk-node": "^5.1.6",
+    "dotenv": "^16.4.7"
+  }
+}
