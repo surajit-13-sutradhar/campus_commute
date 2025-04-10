@@ -137,7 +137,7 @@ npm install --save-dev nodemon
 ```
 ---
 
-##📁Folder Structure
+##  📁 Folder Structure (Backend)
 ```bash
 CampusCommute/
 ├── server/
