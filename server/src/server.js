@@ -1,12 +1,13 @@
-import express from 'express'
+import express from "express"
 import dotenv from 'dotenv'
 import vehicleRoutes from './routes/vehicles.route.js'
 import bookingRoutes from './routes/bookings.route.js'
+import authRoutes from './routes/auth.routes.js'
 
 dotenv.config()
 const app = express()
 
-const cors = require("cors");
+import cors from 'cors'
 app.use(cors());
 
 

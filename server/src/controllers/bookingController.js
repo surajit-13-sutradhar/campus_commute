@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient()
 
-exports.createBooking = async (req, res) => {
+const createBooking = async (req, res) => {
     const {vehicleId, type} = req.body
     const userId = req.user.id
 
@@ -43,3 +43,6 @@ exports.createBooking = async (req, res) => {
         res.status(500).json({ error: "Booking failed" });
     }
 }
+
+
+export default createBooking

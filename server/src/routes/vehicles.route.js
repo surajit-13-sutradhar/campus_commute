@@ -5,4 +5,4 @@ const router = express.Router()
 router.get("/search", searchVehicles)
 
 
-module.exports = router
+export default router

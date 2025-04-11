@@ -7,7 +7,7 @@ import generateToken from '../utils/generateToken.js'
 
 const prisma = new PrismaClient()
 
-exports.signup = async (req, res) => {
+export const signup = async (req, res) => {
     const { name, email, password, role } = req.body;
     const idImage = req.file ? req.file.path : null;
 
@@ -39,7 +39,7 @@ exports.signup = async (req, res) => {
     }
 }
 
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await prisma.user.findUnique({ where: { email } });
