@@ -13,10 +13,13 @@ const BookingSearch = () => {
     try {
       setLoading(true);
       setError(null);
+      console.log('Searching with params:', { start, end, time });
+      
       const response = await axios.get(
         `${import.meta.env.VITE_API_URL}/vehicles/search`,
         { params: { start, end, time } }
       );
+      console.log('Search response:', response.data);
       setResults(response.data);
     } catch (err) {
       console.error('Search error:', err);
@@ -90,37 +93,52 @@ const BookingSearch = () => {
       {results && (
         <div className="mt-6">
           <h3 className="font-semibold text-lg mb-2">Available Buses</h3>
-          {results.buses.map((bus) => (
-            <div key={bus.id} className="flex justify-between items-center border p-2 rounded mb-2">
-              <div>
-                <div className="font-medium">{bus.name}</div>
-                <div className="text-sm text-gray-600">
-                  Route: {bus.route} | Departure: {new Date(bus.departure).toLocaleString()}
+          {results.buses && results.buses.length > 0 ? (
+            results.buses.map((bus) => (
+              <div key={bus.id} className="flex justify-between items-center border p-2 rounded mb-2">
+                <div>
+                  <div className="font-medium">{bus.name}</div>
+                  <div className="text-sm text-gray-600">
+                    Route: {bus.route} | Departure: {bus.departure ? new Date(bus.departure).toLocaleString() : 'Not scheduled'}
+                  </div>
                 </div>
+                <button
+                  onClick={() => bookVehicle(bus.id, "BUS")}
+                  disabled={loading}
+                  className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
+                >
+                  Book
+                </button>
               </div>
-              <button
-                onClick={() => bookVehicle(bus.id, "BUS")}
-                disabled={loading}
-                className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
-              >
-                Book
-              </button>
-            </div>
-          ))}
+            ))
+          ) : (
+            <div className="text-gray-500 mb-4">No buses available for this route</div>
+          )}
 
           <h3 className="font-semibold text-lg mt-4 mb-2">Available Autos</h3>
-          {results.autos.map((auto) => (
-            <div key={auto.id} className="flex justify-between items-center border p-2 rounded mb-2">
-              <div>{auto.name}</div>
-              <button
-                onClick={() => bookVehicle(auto.id, "AUTO")}
-                disabled={loading}
-                className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
-              >
-                Book
-              </button>
-            </div>
-          ))}
+          {results.autos && results.autos.length > 0 ? (
+            results.autos.map((auto) => (
+              <div key={auto.id} className="flex justify-between items-center border p-2 rounded mb-2">
+                <div>
+                  <div className="font-medium">{auto.name}</div>
+                  {auto.route && (
+                    <div className="text-sm text-gray-600">
+                      Current Location: {auto.route}
+                    </div>
+                  )}
+                </div>
+                <button
+                  onClick={() => bookVehicle(auto.id, "AUTO")}
+                  disabled={loading}
+                  className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
+                >
+                  Book
+                </button>
+              </div>
+            ))
+          ) : (
+            <div className="text-gray-500">No autos available at the moment</div>
+          )}
         </div>
       )}
     </div>

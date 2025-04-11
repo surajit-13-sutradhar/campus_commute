@@ -19,7 +19,6 @@ app.use(express.json())
 app.use("/uploads", express.static("src/uploads"))
 app.use("/api/vehicles", vehicleRoutes)
 app.use("/api/bookings", bookingRoutes)
-
 app.use("/api/auth", authRoutes)
 
 const PORT = process.env.PORT || 5000

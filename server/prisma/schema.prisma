@@ -8,22 +8,22 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid())
+  id        String              @id @default(uuid())
   name      String
-  email     String    @unique
+  email     String              @unique
   password  String
-  role      Role      @default(STUDENT)
+  role      Role                @default(STUDENT)
   idImage   String?
-  createdAt DateTime  @default(now())
+  createdAt DateTime            @default(now())
   bookings  Booking[]
   bulkBookings BulkBooking[]
 }
 
 model Vehicle {
-  id        String      @id @default(uuid())
+  id        String              @id @default(uuid())
   name      String
   type      VehicleType
-  available Boolean     @default(true)
+  available Boolean             @default(true)
   route     String? // Only for buses
   departure DateTime?
   bookings  Booking[]
@@ -32,13 +32,14 @@ model Vehicle {
 }
 
 model Booking {
-  id        String      @id @default(uuid())
-  user      User        @relation(fields: [userId], references: [id])
+  id        String          @id @default(uuid())
+  user      User            @relation(fields: [userId], references: [id])
   userId    String
-  vehicle   Vehicle     @relation(fields: [vehicleId], references: [id])
+  vehicle   Vehicle         @relation(fields: [vehicleId], references: [id])
   vehicleId String
-  createdAt DateTime    @default(now())
+  createdAt DateTime        @default(now())
   type      BookingType
+  status    BookingStatus   @default(CONFIRMED)
 }
 
 model BulkBooking {
@@ -75,4 +76,10 @@ enum BulkBookingStatus {
   PENDING
   APPROVED
   REJECTED
+}
+
+enum BookingStatus {
+  CONFIRMED
+  CANCELLED
+  COMPLETED
 }

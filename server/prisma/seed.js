@@ -49,12 +49,12 @@ async function main() {
         ],
     });
 
-    console.log(`✅ Seeded ${buses.length} buses & 3 autos.`);
+    console.log(`Seeded ${buses.length} buses & 3 autos.`);
 }
 
 main()
     .catch((err) => {
-        console.error("❌ Seeding failed:", err);
+        console.error("Seeding failed:", err);
         process.exit(1);
     })
     .finally(() => prisma.$disconnect());

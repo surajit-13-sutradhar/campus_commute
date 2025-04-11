@@ -125,12 +125,8 @@ const DashboardPage = () => {
                                         </p>
                                     </div>
                                     <div className="text-right">
-                                        <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                                            booking.status === 'CONFIRMED' 
-                                                ? 'bg-green-100 text-green-800'
-                                                : 'bg-yellow-100 text-yellow-800'
-                                        }`}>
-                                            {booking.status}
+                                        <span className="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                                            CONFIRMED
                                         </span>
                                     </div>
                                 </div>

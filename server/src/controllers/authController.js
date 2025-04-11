@@ -1,6 +1,4 @@
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
-
 import { PrismaClient } from '@prisma/client'
 
 import generateToken from '../utils/generateToken.js'
@@ -11,20 +9,20 @@ export const signup = async (req, res) => {
     const { name, email, password, role } = req.body;
     const idImage = req.file ? req.file.path : null;
 
-    console.log('📝 Signup attempt:', { email, role, hasIdImage: !!idImage });
+    console.log('Signup attempt:', { email, role, hasIdImage: !!idImage });
 
     try {
-        console.log('🔍 Checking for existing user...');
+        console.log('Checking for existing user...');
         const existingUser = await prisma.user.findUnique({ where: { email } });
         if (existingUser) {
-            console.log('❌ User already exists:', email);
+            console.log('User already exists:', email);
             return res.status(400).json({ error: "Email already registered" });
         }
 
-        console.log('🔐 Hashing password...');
+        console.log('Hashing password...');
         const hashedPassword = await bcrypt.hash(password, 10);
         
-        console.log('📝 Creating new user...');
+        console.log('Creating new user...');
         const newUser = await prisma.user.create({
             data: {
                 name,
@@ -34,10 +32,10 @@ export const signup = async (req, res) => {
                 idImage
             },
         });
-        console.log('✅ User created successfully:', { id: newUser.id, email: newUser.email });
+        console.log('User created successfully:', { id: newUser.id, email: newUser.email });
 
         const token = generateToken(newUser.id);
-        console.log('🔑 Generated JWT token for new user');
+        console.log('Generated JWT token for new user');
 
         res.status(201).json({
             id: newUser.id,
@@ -47,37 +45,37 @@ export const signup = async (req, res) => {
             token: token
         });
     } catch (err) {
-        console.error('❌ Signup error:', err);
+        console.error('Signup error:', err);
         res.status(500).json({ error: "Signup failed", details: err.message });
     }
 }
 
 export const login = async (req, res) => {
     const { email, password } = req.body;
-    console.log('🔑 Login attempt for email:', email);
+    console.log('Login attempt for email:', email);
     
     try {
         console.log('🔍 Searching for user in database...');
         const user = await prisma.user.findUnique({ where: { email } });
         
         if (!user) {
-            console.log('❌ User not found for email:', email);
+            console.log('User not found for email:', email);
             return res.status(401).json({ error: "Invalid credentials" });
         }
         
-        console.log('✅ User found:', { id: user.id, email: user.email, role: user.role });
-        console.log('🔐 Comparing passwords...');
+        console.log('User found:', { id: user.id, email: user.email, role: user.role });
+        console.log('Comparing passwords...');
         
         const valid = await bcrypt.compare(password, user.password);
         
         if (!valid) {
-            console.log('❌ Password mismatch for user:', email);
+            console.log('Password mismatch for user:', email);
             return res.status(401).json({ error: "Invalid credentials" });
         }
         
-        console.log('✅ Password verified successfully');
+        console.log('Password verified successfully');
         const token = generateToken(user.id);
-        console.log('🔑 Generated JWT token for user:', user.id);
+        console.log('Generated JWT token for user:', user.id);
 
         res.json({
             id: user.id,
@@ -87,7 +85,7 @@ export const login = async (req, res) => {
             token: token
         });
     } catch (err) {
-        console.error('❌ Login error:', err);
+        console.error('Login error:', err);
         res.status(500).json({ error: "Login failed", details: err.message });
     }
 }

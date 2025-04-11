@@ -20,12 +20,13 @@ const createBooking = async (req, res) => {
             }
         }
     
-        // Create booking
+        // Create booking with CONFIRMED status
         await prisma.booking.create({
             data: {
                 userId,
                 vehicleId,
-                type: vehicle.type === "BUS" ? "BOOKING" : "AUTO"
+                type: vehicle.type === "BUS" ? "BOOKING" : "AUTO",
+                status: "CONFIRMED" // Set status as CONFIRMED
             }
         });
     
