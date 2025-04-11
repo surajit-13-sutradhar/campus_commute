@@ -9,13 +9,20 @@ export const searchVehicles = async (req, res) => {
   
     try {
         const desiredTime = new Date(time);
+        const startOfDay = new Date(desiredTime);
+        startOfDay.setHours(0, 0, 0, 0);
+        const endOfDay = new Date(desiredTime);
+        endOfDay.setHours(23, 59, 59, 999);
     
         // Fetch matching buses
         const buses = await prisma.vehicle.findMany({
             where: {
             type: "BUS",
             available: true,
-            departure: { gte: desiredTime },
+            departure: {
+                gte: desiredTime,
+                lte: endOfDay
+            },
             route: {
                 contains: start,
                 mode: "insensitive"
@@ -43,8 +50,8 @@ export const searchVehicles = async (req, res) => {
             buses: validBuses,
             autos
         });
-        } catch (err) {
-            console.error(err);
-            res.status(500).json({ error: "Vehicle search failed" });
-        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Vehicle search failed" });
+    }
 };

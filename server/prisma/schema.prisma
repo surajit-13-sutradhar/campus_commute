@@ -16,6 +16,7 @@ model User {
   idImage   String?
   createdAt DateTime  @default(now())
   bookings  Booking[]
+  bulkBookings BulkBooking[]
 }
 
 model Vehicle {
@@ -26,6 +27,8 @@ model Vehicle {
   route     String? // Only for buses
   departure DateTime?
   bookings  Booking[]
+  bulkBookingId String?
+  bulkBooking   BulkBooking? @relation(fields: [bulkBookingId], references: [id])
 }
 
 model Booking {
@@ -36,6 +39,20 @@ model Booking {
   vehicleId String
   createdAt DateTime    @default(now())
   type      BookingType
+}
+
+model BulkBooking {
+  id              String    @id @default(uuid())
+  user            User      @relation(fields: [userId], references: [id])
+  userId          String
+  departure       DateTime
+  numberOfBuses   Int
+  numberOfStudents Int
+  reason          String
+  status          BulkBookingStatus @default(PENDING)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  vehicles        Vehicle[]
 }
 
 enum Role {
@@ -52,4 +69,10 @@ enum VehicleType {
 enum BookingType {
   BOOKING
   AUTO
+}
+
+enum BulkBookingStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }

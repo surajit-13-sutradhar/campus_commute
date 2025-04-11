@@ -7,13 +7,13 @@ const createBooking = async (req, res) => {
 
     try {
         const vehicle = await prisma.vehicle.findUnique({ where: { id: vehicleId } });
-        if (!vehicle || !vehicle.available || vehicle.type !== type) {
+        if (!vehicle || !vehicle.available) {
             return res.status(400).json({ error: "Invalid or unavailable vehicle" });
         }
     
-        if (type === "BUS") {
+        if (vehicle.type === "BUS") {
             const existing = await prisma.booking.findFirst({
-                where: { userId, vehicleId, type: "BUS" }
+                where: { userId, vehicleId, type: "BOOKING" }
             });
             if (existing) {
                 return res.status(400).json({ error: "Already booked this bus" });
@@ -25,12 +25,12 @@ const createBooking = async (req, res) => {
             data: {
                 userId,
                 vehicleId,
-                type
+                type: vehicle.type === "BUS" ? "BOOKING" : "AUTO"
             }
         });
     
         // For autos, mark unavailable after booking
-        if (type === "AUTO") {
+        if (vehicle.type === "AUTO") {
           await prisma.vehicle.update({
             where: { id: vehicleId },
             data: { available: false }
@@ -44,5 +44,34 @@ const createBooking = async (req, res) => {
     }
 }
 
+const getUserBookings = async (req, res) => {
+    const userId = req.user.id;
 
-export default createBooking
+    try {
+        const bookings = await prisma.booking.findMany({
+            where: { userId },
+            include: {
+                vehicle: {
+                    select: {
+                        id: true,
+                        name: true,
+                        type: true,
+                        route: true,
+                        departure: true,
+                        available: true
+                    }
+                }
+            },
+            orderBy: {
+                createdAt: 'desc'
+            }
+        });
+
+        res.json(bookings);
+    } catch (err) {
+        console.error('Error fetching user bookings:', err);
+        res.status(500).json({ error: "Failed to fetch bookings" });
+    }
+}
+
+export { createBooking, getUserBookings }
