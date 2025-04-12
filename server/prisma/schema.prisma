@@ -65,11 +65,13 @@ enum Role {
 enum VehicleType {
   BUS
   AUTO
+  CYCLE
 }
 
 enum BookingType {
   BOOKING
   AUTO
+  CYCLE
 }
 
 enum BulkBookingStatus {

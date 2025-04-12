@@ -13,13 +13,12 @@ const BookingSearch = () => {
     try {
       setLoading(true);
       setError(null);
-      console.log('Searching with params:', { start, end, time });
-      
+      console.log('Searching vehicles...', { start, end, time });
       const response = await axios.get(
         `${import.meta.env.VITE_API_URL}/vehicles/search`,
         { params: { start, end, time } }
       );
-      console.log('Search response:', response.data);
+      console.log('Search results:', response.data);
       setResults(response.data);
     } catch (err) {
       console.error('Search error:', err);
@@ -44,6 +43,8 @@ const BookingSearch = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert(`${vehicleType} booked successfully`);
+      // Refreshing the search results after booking
+      searchVehicles();
     } catch (err) {
       console.error('Booking error:', err);
       setError(err.response?.data?.error || "Failed to book vehicle");
@@ -99,7 +100,7 @@ const BookingSearch = () => {
                 <div>
                   <div className="font-medium">{bus.name}</div>
                   <div className="text-sm text-gray-600">
-                    Route: {bus.route} | Departure: {bus.departure ? new Date(bus.departure).toLocaleString() : 'Not scheduled'}
+                    Route: {bus.route} | Departure: {new Date(bus.departure).toLocaleString()}
                   </div>
                 </div>
                 <button
@@ -121,11 +122,6 @@ const BookingSearch = () => {
               <div key={auto.id} className="flex justify-between items-center border p-2 rounded mb-2">
                 <div>
                   <div className="font-medium">{auto.name}</div>
-                  {auto.route && (
-                    <div className="text-sm text-gray-600">
-                      Current Location: {auto.route}
-                    </div>
-                  )}
                 </div>
                 <button
                   onClick={() => bookVehicle(auto.id, "AUTO")}
@@ -137,7 +133,27 @@ const BookingSearch = () => {
               </div>
             ))
           ) : (
-            <div className="text-gray-500">No autos available at the moment</div>
+            <div className="text-gray-500 mb-4">No autos available at the moment</div>
+          )}
+
+          <h3 className="font-semibold text-lg mt-4 mb-2">Available Cycles</h3>
+          {results.cycles && results.cycles.length > 0 ? (
+            results.cycles.map((cycle) => (
+              <div key={cycle.id} className="flex justify-between items-center border p-2 rounded mb-2">
+                <div>
+                  <div className="font-medium">{cycle.name}</div>
+                </div>
+                <button
+                  onClick={() => bookVehicle(cycle.id, "CYCLE")}
+                  disabled={loading}
+                  className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
+                >
+                  Book
+                </button>
+              </div>
+            ))
+          ) : (
+            <div className="text-gray-500">No cycles available at the moment</div>
           )}
         </div>
       )}

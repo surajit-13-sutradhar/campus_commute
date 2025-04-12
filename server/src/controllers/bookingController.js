@@ -46,33 +46,24 @@ const createBooking = async (req, res) => {
 }
 
 const getUserBookings = async (req, res) => {
-    const userId = req.user.id;
-
     try {
+        const userId = req.user.id;
         const bookings = await prisma.booking.findMany({
-            where: { userId },
+            where: {
+                userId: userId
+            },
             include: {
-                vehicle: {
-                    select: {
-                        id: true,
-                        name: true,
-                        type: true,
-                        route: true,
-                        departure: true,
-                        available: true
-                    }
-                }
+                vehicle: true
             },
             orderBy: {
                 createdAt: 'desc'
             }
         });
-
         res.json(bookings);
-    } catch (err) {
-        console.error('Error fetching user bookings:', err);
-        res.status(500).json({ error: "Failed to fetch bookings" });
+    } catch (error) {
+        console.error('Error fetching user bookings:', error);
+        res.status(500).json({ error: 'Failed to fetch bookings' });
     }
-}
+};
 
 export { createBooking, getUserBookings }
