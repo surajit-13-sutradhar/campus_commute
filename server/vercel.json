@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "src/server.js"
+    }
+  ],
+  "env": {
+    "DATABASE_URL": "postgresql://khogenDb_owner:npg_HEvnU18lcsLX@ep-autumn-mouse-a5sn9uh0.us-east-2.aws.neon.tech/khogenDb?sslmode=require",
+    "JWT_SECRET": "dfhduidhg78ewfyew0aspflkdj"
+  }
+} 
