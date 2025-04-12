@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Authform from '../components/AuthForm';
+import Authform from '../components/AuthForm.jsx';
 import { useAuth } from '../contexts/AuthContext';
 
 const AuthPage = ({ setIsLoggedIn }) => {
